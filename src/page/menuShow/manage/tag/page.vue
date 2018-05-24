@@ -8,7 +8,7 @@
 export const router = {}
 export default {
   mounted () {
-    this.$http.get('tag', {
+    this.$http.get('tag/12', {
       params: {
         currentPage: 1,
         pageSize: 10
