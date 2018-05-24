@@ -7,6 +7,12 @@
 <script>
 export const router = {}
 export default {
+  mounted () {
+    this.$http.post('test')
+      .then(res => {
+        console.log(res)
+      })
+  }
 }
 </script>
 
