@@ -14,6 +14,11 @@ const reqMenuHide = require.context('@/page/menuHide', false, /\.vue$/)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'index',
+      component: resolve => { require([`@/page/mainLayout`], resolve) }
+    },
     ...req2router(reqMenuHide)
   ]
 })
