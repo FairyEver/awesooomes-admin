@@ -9,8 +9,6 @@ const pages = req.keys().map(req).map(page => ({
   component: page.default
 }))
 
-console.log(pages)
-
 export default new Router({
   routes: pages
 })

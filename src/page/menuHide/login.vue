@@ -16,7 +16,7 @@ export const router = {
   name: 'login'
 }
 export default {
-  name: 'loginPage',
+  name: 'page-login',
   data () {
     return {
       form: {
