@@ -11,8 +11,23 @@ html, body {
   height: 100%;
 }
 
+// 垂直水平居中
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.flex-center-column {
+  @extend .flex-center;
+  flex-direction: column;
+}
+// 高度100%
+.height-full {
+  height: 100%;
+}
+
+.mb-0 { margin-bottom: 0px; }
+.mb-5 { margin-bottom: 5px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-15 { margin-bottom: 15px; }
+.mb-20 { margin-bottom: 20px; }
