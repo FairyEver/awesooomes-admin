@@ -13,6 +13,7 @@ const req2router = (publicPath, req) => {
     return {
       path,
       name,
+      ...page.router,
       component: page.default
     }
   })

@@ -5,10 +5,7 @@
 </template>
 
 <script>
-export const router = {
-  path: 'manage/tag',
-  name: 'manage-tag'
-}
+export const router = {}
 export default {
   name: 'page-1'
 }
