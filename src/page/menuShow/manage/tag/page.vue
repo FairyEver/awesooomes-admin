@@ -8,7 +8,12 @@
 export const router = {}
 export default {
   mounted () {
-    this.$http.post('test')
+    this.$http.get('tag', {
+      params: {
+        currentPage: 1,
+        pageSize: 10
+      }
+    })
       .then(res => {
         console.log(res)
       })
