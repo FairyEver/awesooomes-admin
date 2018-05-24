@@ -1,13 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import _path from 'path'
+import _replace from 'lodash.replace'
 
 Vue.use(Router)
 
-const req2router = (req) => {
-  return req.keys().map(req).map(page => ({
-    ...page.router,
-    component: page.default
-  }))
+const req2router = (publicPath, req) => {
+  return req.keys().map(req).map(page => {
+    const filePath = page.default.__file
+    const path = _replace(_path.dirname(filePath), publicPath, '')
+    const name = _replace(path, '/', '-')
+    return {
+      path,
+      name,
+      component: page.default
+    }
+  })
 }
 
 const reqMenuHide = require.context('@/page/menuHide', true, /page\.vue$/)
@@ -19,8 +27,9 @@ export default new Router({
       path: '/',
       name: 'index',
       component: resolve => { require([`@/page/mainLayout`], resolve) },
-      children: req2router(reqMenuShow)
+      children: req2router('src/page/menuShow/', reqMenuShow)
     },
-    ...req2router(reqMenuHide)
+    // 注意 'src/page/menuHide' 后面没有 '/'
+    ...req2router('src/page/menuHide', reqMenuHide)
   ]
 })

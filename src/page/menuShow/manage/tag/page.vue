@@ -1,13 +1,13 @@
 <template>
-  <el-container class="page flex-center-column height-full">
+  <el-container class="page">
     hello
   </el-container>
 </template>
 
 <script>
 export const router = {
-  path: 'page1',
-  name: 'page1'
+  path: 'manage/tag',
+  name: 'manage-tag'
 }
 export default {
   name: 'page-1'
@@ -16,13 +16,5 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  background-color: #F2F6FC;
-  .card {
-    width: 300px;
-    .btn-submit {
-      width: 100%;
-      font-weight: bold;
-    }
-  }
 }
 </style>
