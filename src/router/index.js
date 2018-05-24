@@ -10,7 +10,7 @@ const req2router = (req) => {
   }))
 }
 
-const reqMenuHide = require.context('@/page/menuHide', false, /\.vue$/)
+const reqMenuHide = require.context('@/page/menuHide', true, /page-[0-9a-zA-Z]+\.vue$/)
 
 export default new Router({
   routes: [
