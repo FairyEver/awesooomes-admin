@@ -7,7 +7,6 @@
 <script>
 export const router = {}
 export default {
-  name: 'page-1'
 }
 </script>
 

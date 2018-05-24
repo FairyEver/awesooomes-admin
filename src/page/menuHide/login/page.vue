@@ -13,7 +13,6 @@
 <script>
 export const router = {}
 export default {
-  name: 'page-login',
   data () {
     return {
       form: {
