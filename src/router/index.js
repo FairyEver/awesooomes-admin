@@ -10,14 +10,16 @@ const req2router = (req) => {
   }))
 }
 
-const reqMenuHide = require.context('@/page/menuHide', true, /page-[0-9a-zA-Z]+\.vue$/)
+const reqMenuHide = require.context('@/page/menuHide', true, /page\.vue$/)
+const reqMenuShow = require.context('@/page/menuShow', true, /page\.vue$/)
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'index',
-      component: resolve => { require([`@/page/mainLayout`], resolve) }
+      component: resolve => { require([`@/page/mainLayout`], resolve) },
+      children: req2router(reqMenuShow)
     },
     ...req2router(reqMenuHide)
   ]
