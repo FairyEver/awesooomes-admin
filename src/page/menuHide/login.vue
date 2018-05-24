@@ -11,6 +11,10 @@
 </template>
 
 <script>
+export const router = {
+  path: '/login',
+  name: 'login'
+}
 export default {
   name: 'loginPage',
   data () {
