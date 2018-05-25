@@ -7,6 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import axios from '@/plugin/axios.js'
 
+import '@/components/register.js'
+
 Vue.use(ElementUI)
 
 Vue.prototype.$http = axios

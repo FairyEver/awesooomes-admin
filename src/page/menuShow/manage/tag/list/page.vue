@@ -30,13 +30,8 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="100">
-      </el-pagination>
+      <!-- 分页 -->
+      <page />
     </el-card>
   </el-container>
 </template>
