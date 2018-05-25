@@ -117,7 +117,7 @@ export default {
      * 接收删除事件
      */
     handleDelete (scope) {
-      this.$confirm('确认删除')
+      this.$confirm(`确认删除 "${scope.row.name}" ?`)
         .then(_ => {
           this.deleteOne(scope.row.id)
         })
