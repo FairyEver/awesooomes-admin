@@ -1,8 +1,8 @@
 <template>
   <el-container class="page-table-list">
-    <page-title
-      title="Tag 标签管理"
-      sub-title="新增 修改 或者删除标签"/>
+    <!-- 标题 -->
+    <page-title title="Tag 标签管理" sub-title="新增 修改 或者删除标签"/>
+    <!-- 主体 -->
     <el-card>
       <!-- 头部 -->
       <el-form slot="header" :inline="true" size="small" class="card-header">
