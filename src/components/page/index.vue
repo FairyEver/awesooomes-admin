@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10" v-if="total !== 1">
+  <div class="mt-10" v-if="total > 1">
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
