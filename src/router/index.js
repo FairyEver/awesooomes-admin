@@ -7,10 +7,10 @@ Vue.use(Router)
 
 const req2router = (publicPath, req) => {
   return req.keys().map(req).map(page => {
-    const path = `${_replace(_path.dirname(page.default.__file), publicPath, '')}${page.router.pathSuffix || ''}`
+    const path = _replace(_path.dirname(page.default.__file), publicPath, '')
     const name = path.split('/').join('-')
     return {
-      path,
+      path: `${path}${page.router.pathSuffix || ''}`,
       name,
       ...page.router,
       component: page.default

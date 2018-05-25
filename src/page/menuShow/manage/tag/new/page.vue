@@ -36,6 +36,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * 发送数据
+     */
     sendData () {
       this.loadingStart()
       this.$http.post('tag', {
@@ -47,6 +50,9 @@ export default {
           this.form.name = ''
         })
     },
+    /**
+     * 表单提交
+     */
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {

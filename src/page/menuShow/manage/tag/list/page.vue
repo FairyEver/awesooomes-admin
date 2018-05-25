@@ -111,7 +111,12 @@ export default {
      * 接收编辑事件
      */
     handleEdit (scope) {
-      console.log(scope)
+      this.$router.push({
+        name: 'manage-tag-edit',
+        params: {
+          id: scope.row.id
+        }
+      })
     },
     /**
      * 接收删除事件
