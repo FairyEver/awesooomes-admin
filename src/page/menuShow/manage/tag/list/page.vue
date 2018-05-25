@@ -1,10 +1,10 @@
 <template>
   <el-container class="page">
+    <h1 class="mt-0 mb-0">Tag 标签管理</h1>
+    <p class="mt-5">管理你的标签</p>
     <el-card>
       <!-- 头部 -->
       <div slot="header" class="clearfix">
-        <h1 class="mt-0 mb-0">Tag 标签管理</h1>
-        <p class="mt-5">管理你的标签</p>
         <div>
           <el-form :inline="true">
             <el-form-item>
