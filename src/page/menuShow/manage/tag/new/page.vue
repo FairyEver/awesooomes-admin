@@ -17,8 +17,12 @@
 </template>
 
 <script>
+import pageMixin from '@/mixin/page.js'
 export const router = {}
 export default {
+  mixins: [
+    pageMixin
+  ],
   data () {
     return {
       form: {
@@ -32,10 +36,21 @@ export default {
     }
   },
   methods: {
+    sendData () {
+      this.loadingStart()
+      this.$http.post('tag', {
+        name: this.form.name
+      })
+        .then(res => {
+          this.loadingEnd()
+          this.messageData(res)
+          this.form.name = ''
+        })
+    },
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.sendData()
         } else {
           console.log('error submit!!')
           return false
