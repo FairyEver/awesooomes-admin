@@ -18,18 +18,15 @@ const req2router = (publicPath, req) => {
   })
 }
 
-const reqMenuHide = require.context('@/page/menuHide', true, /page\.vue$/)
-const reqMenuShow = require.context('@/page/menuShow', true, /page\.vue$/)
-
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'index',
       component: resolve => { require([`@/page/mainLayout`], resolve) },
-      children: req2router('src/page/menuShow/', reqMenuShow)
+      children: req2router('src/page/menuShow/', require.context('@/page/menuShow', true, /page\.vue$/))
     },
     // 注意 'src/page/menuHide' 后面没有 '/'
-    ...req2router('src/page/menuHide', reqMenuHide)
+    ...req2router('src/page/menuHide', require.context('@/page/menuHide', true, /page\.vue$/))
   ]
 })
