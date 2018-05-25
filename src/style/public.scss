@@ -12,6 +12,10 @@ html, body {
   height: 100%;
 }
 
+.page-container {
+  flex-direction: column;
+}
+
 // 垂直水平居中
 .flex-center {
   display: flex;
