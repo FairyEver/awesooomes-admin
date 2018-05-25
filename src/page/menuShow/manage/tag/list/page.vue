@@ -11,33 +11,22 @@
               <el-button type="primary" @click="handleNew">新建</el-button>
             </el-form-item>
             <el-form-item>
-              <el-input placeholder="tag name"></el-input>
+              <el-input v-model="searchText" placeholder="tag name" prefix-icon="el-icon-search"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="handleSearch">查询</el-button>
+              <el-button type="primary" v-if="searchText !== ''" @click="handleSearch">查询</el-button>
             </el-form-item>
           </el-form>
         </div>
       </div>
       <!-- 表格 -->
       <el-table v-bind="table">
-        <el-table-column prop="id" label="ID" width="100"></el-table-column>
+        <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="操作" align="center" width="160">
           <template slot-scope="scope">
-            <el-button
-              size="small"
-              plain
-              @click="handleEdit(scope)">
-              修改
-            </el-button>
-            <el-button
-              size="small"
-              type="danger"
-              plain
-              @click="handleDelete(scope)">
-              删除
-            </el-button>
+            <el-button size="small" plain @click="handleEdit(scope)">修改</el-button>
+            <el-button size="small" type="danger" plain @click="handleDelete(scope)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -57,6 +46,7 @@ export const router = {}
 export default {
   data () {
     return {
+      searchText: '',
       table: {
         data: [],
         border: true,
