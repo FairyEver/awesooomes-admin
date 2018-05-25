@@ -3,9 +3,9 @@
     <h1 class="mt-0">
       <el-button
         v-if="backRouterName"
-        icon="el-icon-arrow-left"
-        size="mini"
-        @click="handleBack">
+        size="small"
+        @click="handleBack"
+        class="btn-back">
         {{backRouterTitle}}
       </el-button>
       {{title}}
@@ -44,5 +44,9 @@ export default {
 .sub-title {
   font-size: 12px;
   opacity: .3;
+}
+.btn-back {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 </style>

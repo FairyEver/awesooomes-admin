@@ -4,6 +4,7 @@
     <page-title
       title="新建 Tag"
       sub-title="新建一个 tag 标签"
+      back-router-title="返回列表"
       back-router-name="manage-tag-list"/>
     <!-- 主体 -->
     <el-card>
