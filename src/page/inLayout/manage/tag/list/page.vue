@@ -5,17 +5,23 @@
     <!-- 主体 -->
     <el-card>
       <!-- 头部 -->
-      <el-form slot="header" :inline="true" size="small" class="card-header">
-        <el-form-item>
-          <el-button type="primary" icon="el-icon-plus" @click="handleNew">新建</el-button>
-        </el-form-item>
-        <!-- 根据名称搜索 -->
-        <el-form-item>
-          <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;" @clear="getTableData">
-            <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
-          </el-input>
-        </el-form-item>
-      </el-form>
+      <div slot="header" class="card-header">
+        <el-form :inline="true" size="small">
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-plus" @click="handleNew">新建</el-button>
+          </el-form-item>
+          <!-- 根据名称搜索 -->
+          <el-form-item>
+            <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;" @clear="getTableData">
+              <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
+            </el-input>
+          </el-form-item>
+          <!-- 打开模糊查询面板 -->
+          <el-form-item>
+            <el-button>模糊查询</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
       <!-- 表格 -->
       <div class="card-body">
         <!-- 分页 -->
