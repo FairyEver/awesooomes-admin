@@ -9,11 +9,17 @@
         <el-form-item>
           <el-button type="primary" @click="handleNew">新建</el-button>
         </el-form-item>
+        <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input v-model="searchText" placeholder="tag name" prefix-icon="el-icon-search"></el-input>
+          <el-input v-model="searchTagName" placeholder="tag name" prefix-icon="el-icon-search" style="width: 150px;">
+            <el-button v-if="searchTagName" slot="append" icon="el-icon-search" @click="handleSearchName"></el-button>
+          </el-input>
         </el-form-item>
+        <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-button type="primary" v-if="searchText !== ''" @click="handleSearch">查询</el-button>
+          <el-input v-model="searchTagId" placeholder="tag id" prefix-icon="el-icon-search" style="width: 150px;">
+            <el-button v-if="searchTagId" slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
+          </el-input>
         </el-form-item>
       </el-form>
       <!-- 表格 -->
@@ -47,7 +53,8 @@ export default {
   ],
   data () {
     return {
-      searchText: '',
+      searchTagName: '',
+      searchTagId: '',
       table: {
         data: [],
         size: 'mini',
@@ -103,9 +110,15 @@ export default {
       //
     },
     /**
-     * 接收搜索事件
+     * 接收搜索事件 根据 name 搜索
      */
-    handleSearch () {
+    handleSearchName () {
+      //
+    },
+    /**
+     * 接收搜索事件 根据 id 搜索
+     */
+    handleSearchId () {
       //
     }
   }
