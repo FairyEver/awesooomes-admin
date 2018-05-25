@@ -1,7 +1,10 @@
 <template>
   <el-container class="page-container">
     <!-- 标题 -->
-    <page-title title="新建 Tag" sub-title="新建一个 tag 标签"/>
+    <page-title
+      title="新建 Tag"
+      sub-title="新建一个 tag 标签"
+      back-router-name="manage-tag-list"/>
     <!-- 主体 -->
     <el-card>
       <el-form :model="form" :rules="rules" ref="form" label-position="top">
