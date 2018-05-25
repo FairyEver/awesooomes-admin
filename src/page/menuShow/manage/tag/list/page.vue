@@ -7,18 +7,18 @@
       <!-- 头部 -->
       <el-form slot="header" :inline="true" size="small" class="card-header">
         <el-form-item>
-          <el-button type="primary" @click="handleNew">新建</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="handleNew">新建</el-button>
         </el-form-item>
         <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input v-model="searchTagName" placeholder="tag name" prefix-icon="el-icon-search" style="width: 150px;">
-            <el-button v-if="searchTagName" slot="append" icon="el-icon-search" @click="handleSearchName"></el-button>
+          <el-input v-model="searchTagName" placeholder="name" prefix-icon="el-icon-search" style="width: 150px;">
+            <el-button slot="append" icon="el-icon-search" @click="handleSearchName"></el-button>
           </el-input>
         </el-form-item>
         <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input v-model="searchTagId" placeholder="tag id" prefix-icon="el-icon-search" style="width: 150px;">
-            <el-button v-if="searchTagId" slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
+          <el-input v-model="searchTagId" placeholder="id" prefix-icon="el-icon-search" style="width: 150px;">
+            <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
           </el-input>
         </el-form-item>
       </el-form>
@@ -134,6 +134,9 @@ export default {
   .el-form-item {
     margin-bottom: 0px;
     margin-right: 5px;
+  }
+  .el-input-group--append {
+    margin-top: -1px;
   }
   .card-body {
     margin: -10px;
