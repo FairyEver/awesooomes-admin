@@ -27,18 +27,15 @@
         <el-table v-bind="table" class="mb-10">
           <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
           <el-table-column prop="name" label="名称"></el-table-column>
-          <el-table-column label="操作" align="center" width="160">
+          <el-table-column label="操作" align="center" width="140">
             <template slot-scope="scope">
-              <el-button size="small" plain @click="handleEdit(scope)">修改</el-button>
-              <el-button size="small" type="danger" plain @click="handleDelete(scope)">删除</el-button>
+              <el-button size="mini" plain @click="handleEdit(scope)" icon="el-icon-edit"/>
+              <el-button size="mini" type="danger" plain @click="handleDelete(scope)" icon="el-icon-delete"/>
             </template>
           </el-table-column>
         </el-table>
         <!-- 分页 -->
-        <page
-          v-bind="page"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"/>
+        <page v-bind="page" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
       </div>
     </el-card>
   </el-container>
@@ -71,12 +68,14 @@ export default {
      * 获取数据
      */
     getData () {
+      this.loadingStart()
       this.$http.get('tag', {
         params: {
           ...this.page
         }
       })
         .then(res => {
+          this.loadingEnd()
           this.messageData(res)
           this.table.data = res.data.data.list
           this.page.total = res.data.data.total
@@ -86,8 +85,10 @@ export default {
      * 删除一个tag
      */
     deleteTag (id) {
+      this.loadingStart()
       this.$http.delete(`tag/${id}`)
         .then(res => {
+          this.loadingEnd()
           this.getData()
         })
     },

@@ -1,6 +1,7 @@
 export default {
   data () {
     return {
+      loading: null,
       page: {
         total: 0,
         pageSize: 10,
@@ -31,6 +32,23 @@ export default {
     handleCurrentChange (val) {
       this.page.currentPage = val
       this.getData()
+    },
+    /**
+     * 开始显示loading
+     */
+    loadingStart () {
+      this.loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(255, 255, 255, 0.5)'
+      })
+    },
+    /**
+     * 开始显示loading
+     */
+    loadingEnd () {
+      this.loading.close()
     }
   }
 }
