@@ -1,37 +1,39 @@
 <template>
-  <el-container class="page">
-    <h1 class="mt-0 mb-0">Tag 标签管理</h1>
-    <p class="mt-5">管理你的标签</p>
+  <el-container class="page-table-list">
+    <page-title
+      title="Tag 标签管理"
+      sub-title="新增 修改 或者删除标签"/>
     <el-card>
       <!-- 头部 -->
-      <div slot="header" class="clearfix">
-        <div>
-          <el-form :inline="true">
-            <el-form-item>
-              <el-button type="primary" @click="handleNew">新建</el-button>
-            </el-form-item>
-            <el-form-item>
-              <el-input v-model="searchText" placeholder="tag name" prefix-icon="el-icon-search"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" v-if="searchText !== ''" @click="handleSearch">查询</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
-      </div>
+      <el-form slot="header" :inline="true" size="small" class="card-header">
+        <el-form-item>
+          <el-button type="primary" @click="handleNew">新建</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="searchText" placeholder="tag name" prefix-icon="el-icon-search"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" v-if="searchText !== ''" @click="handleSearch">查询</el-button>
+        </el-form-item>
+      </el-form>
       <!-- 表格 -->
-      <el-table v-bind="table">
-        <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
-        <el-table-column prop="name" label="名称"></el-table-column>
-        <el-table-column label="操作" align="center" width="160">
-          <template slot-scope="scope">
-            <el-button size="small" plain @click="handleEdit(scope)">修改</el-button>
-            <el-button size="small" type="danger" plain @click="handleDelete(scope)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <!-- 分页 -->
-      <page />
+      <div class="card-body">
+        <el-table v-bind="table" class="mb-10">
+          <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
+          <el-table-column prop="name" label="名称"></el-table-column>
+          <el-table-column label="操作" align="center" width="160">
+            <template slot-scope="scope">
+              <el-button size="small" plain @click="handleEdit(scope)">修改</el-button>
+              <el-button size="small" type="danger" plain @click="handleDelete(scope)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <page
+          v-bind="page"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"/>
+      </div>
     </el-card>
   </el-container>
 </template>
@@ -48,6 +50,7 @@ export default {
       searchText: '',
       table: {
         data: [],
+        size: 'mini',
         border: true,
         stripe: true
       }
@@ -63,13 +66,13 @@ export default {
     getData () {
       this.$http.get('tag', {
         params: {
-          currentPage: 1,
-          pageSize: 10
+          ...this.page
         }
       })
         .then(res => {
           this.messageData(res)
           this.table.data = res.data.data.list
+          this.page.total = res.data.data.total
         })
     },
     /**
@@ -110,10 +113,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
+.page-table-list {
   flex-direction: column;
+  .card-header {
+    margin: -10px;
+  }
   .el-form-item {
     margin-bottom: 0px;
+    margin-right: 5px;
+  }
+  .card-body {
+    margin: -10px;
   }
 }
 </style>

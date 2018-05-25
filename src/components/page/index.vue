@@ -4,8 +4,8 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :page-sizes="[10, 20]"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
@@ -19,17 +19,27 @@ export default {
     currentPage: {
       default: 1
     },
+    // 每页的大小
+    pageSize: {
+      default: 10
+    },
     // 总共
     total: {
       default: 0
     }
   },
   methods: {
+    /**
+     * 每页大小发生变化
+     */
     handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
+      this.$emit('size-change', val)
     },
+    /**
+     * 页码变化
+     */
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
+      this.$emit('current-change', val)
     }
   }
 }
