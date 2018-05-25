@@ -69,7 +69,7 @@ export default {
       })
         .then(res => {
           this.messageData(res)
-          this.table.data = res.data.data
+          this.table.data = res.data.data.list
         })
     },
     /**
