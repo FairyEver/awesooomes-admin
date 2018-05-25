@@ -117,7 +117,11 @@ export default {
      * 接收删除事件
      */
     handleDelete (scope) {
-      this.deleteOne(scope.row.id)
+      this.$confirm('确认删除')
+        .then(_ => {
+          this.deleteOne(scope.row.id)
+        })
+        .catch(_ => {})
     },
     /**
      * 接收新增事件
