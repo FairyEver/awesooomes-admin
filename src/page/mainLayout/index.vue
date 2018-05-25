@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .page {
-  background-color: #F2F6FC;
+  background-color: rgba(#F2F6FC, .3);
   .header {
     padding: 0px;
   }
