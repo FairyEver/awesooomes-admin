@@ -24,14 +24,14 @@ export default {
      */
     handleSizeChange (val) {
       this.page.pageSize = val
-      this.getData()
+      this.getTableData()
     },
     /**
      * 页码变化
      */
     handleCurrentChange (val) {
       this.page.currentPage = val
-      this.getData()
+      this.getTableData()
     },
     /**
      * 开始显示loading

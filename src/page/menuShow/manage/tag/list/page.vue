@@ -11,20 +11,14 @@
         </el-form-item>
         <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input v-model="searchTagName" placeholder="name" prefix-icon="el-icon-search" style="width: 150px;">
-            <el-button slot="append" icon="el-icon-search" @click="handleSearchName"></el-button>
-          </el-input>
-        </el-form-item>
-        <!-- 根据名称搜索 -->
-        <el-form-item>
-          <el-input v-model="searchTagId" placeholder="id" prefix-icon="el-icon-search" style="width: 150px;">
+          <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" style="width: 150px;">
             <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
           </el-input>
         </el-form-item>
       </el-form>
       <!-- 表格 -->
       <div class="card-body">
-        <el-table v-bind="table" class="mb-10">
+        <el-table v-bind="table">
           <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column label="操作" align="center" width="140">
@@ -50,8 +44,7 @@ export default {
   ],
   data () {
     return {
-      searchTagName: '',
-      searchTagId: '',
+      searchId: '',
       table: {
         data: [],
         size: 'mini',
@@ -61,13 +54,14 @@ export default {
     }
   },
   mounted () {
-    this.getData()
+    this.getTableData()
   },
   methods: {
     /**
-     * 获取数据
+     * 获取最基础的表格数据
      */
-    getData () {
+    getTableData () {
+      // 搜索
       this.loadingStart()
       this.$http.get('tag', {
         params: {
@@ -82,14 +76,27 @@ export default {
         })
     },
     /**
+     * 通过 id 精确搜索
+     */
+    searchById () {
+      this.loadingStart()
+      this.$http.get(`tag/${this.searchId}`)
+        .then(res => {
+          this.loadingEnd()
+          this.messageData(res)
+          this.table.data = res.data.data.list
+          this.page.total = res.data.data.total
+        })
+    },
+    /**
      * 删除一个tag
      */
-    deleteTag (id) {
+    deleteOne (id) {
       this.loadingStart()
       this.$http.delete(`tag/${id}`)
         .then(res => {
           this.loadingEnd()
-          this.getData()
+          this.getTableData()
         })
     },
     /**
@@ -102,7 +109,7 @@ export default {
      * 接收删除事件
      */
     handleDelete (scope) {
-      this.deleteTag(scope.row.id)
+      this.deleteOne(scope.row.id)
     },
     /**
      * 接收新增事件
@@ -120,7 +127,13 @@ export default {
      * 接收搜索事件 根据 id 搜索
      */
     handleSearchId () {
-      //
+      // 写了搜索id 用id查
+      // 没写id 直接拉取数据
+      if (this.searchId) {
+        this.searchById()
+      } else {
+        this.getTableData()
+      }
     }
   }
 }
