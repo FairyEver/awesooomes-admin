@@ -11,19 +11,16 @@
         </el-form-item>
         <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input
-            v-model="searchId"
-            placeholder="id"
-            prefix-icon="el-icon-search"
-            :clearable="true"
-            style="width: 150px;"
-            @clear="getTableData">
+          <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;" @clear="getTableData">
             <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
           </el-input>
         </el-form-item>
       </el-form>
       <!-- 表格 -->
       <div class="card-body">
+        <!-- 分页 -->
+        <page v-if="page.pageSize > 10" class="mb-5" v-bind="page" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+        <!-- 表格 -->
         <el-table v-bind="table">
           <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
           <el-table-column prop="name" label="名称"></el-table-column>
@@ -35,7 +32,7 @@
           </el-table-column>
         </el-table>
         <!-- 分页 -->
-        <page v-bind="page" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+        <page class="mt-5" v-bind="page" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
       </div>
     </el-card>
   </el-container>
