@@ -21,9 +21,8 @@ export default new Router({
       path: '/',
       name: 'index',
       component: resolve => { require([`@/page/mainLayout`], resolve) },
-      children: req2router('src/page/menuShow/', require.context('@/page/menuShow', true, /page\.vue$/))
+      children: req2router('src/page/inLayout/', require.context('@/page/inLayout', true, /page\.vue$/))
     },
-    // 注意 'src/page/menuHide' 后面没有 '/'
-    ...req2router('src/page/menuHide', require.context('@/page/menuHide', true, /page\.vue$/))
+    ...req2router('src/page/outLayout', require.context('@/page/outLayout', true, /page\.vue$/))
   ]
 })
