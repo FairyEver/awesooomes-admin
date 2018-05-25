@@ -42,8 +42,12 @@
 </template>
 
 <script>
+import pageMixin from '@/mixin/page.js'
 export const router = {}
 export default {
+  mixins: [
+    pageMixin
+  ],
   data () {
     return {
       searchText: '',
@@ -69,7 +73,8 @@ export default {
         }
       })
         .then(res => {
-          this.table.data = res.data
+          this.messageData(res)
+          this.table.data = res.data.data
         })
     },
     /**
