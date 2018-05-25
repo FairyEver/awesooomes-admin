@@ -5,18 +5,15 @@ import _replace from 'lodash.replace'
 
 Vue.use(Router)
 
-const req2router = (publicPath, req) => {
-  return req.keys().map(req).map(page => {
-    const path = _replace(_path.dirname(page.default.__file), publicPath, '')
-    const name = path.split('/').join('-')
-    return {
-      path: `${path}${page.router.pathSuffix || ''}`,
-      name,
-      ...page.router,
-      component: page.default
-    }
-  })
-}
+const req2router = (publicPath, req) => req.keys().map(req).map(page => {
+  const path = _replace(_path.dirname(page.default.__file), publicPath, '')
+  return {
+    path: `${path}${page.router.pathSuffix || ''}`,
+    name: path.split('/').join('-'),
+    ...page.router,
+    component: page.default
+  }
+})
 
 export default new Router({
   routes: [

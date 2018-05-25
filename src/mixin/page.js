@@ -23,6 +23,7 @@ export default {
      * 每页大小发生变化
      */
     handleSizeChange (val) {
+      this.page.currentPage = 1
       this.page.pageSize = val
       this.getTableData()
     },

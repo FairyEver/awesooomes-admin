@@ -8,8 +8,17 @@
       back-router-name="manage-tag-list"/>
     <!-- 主体 -->
     <el-card>
+      <div>
+        <el-tag
+          v-for="(name, index) in nameArray"
+          :key="index"
+          type="info"
+          class="mr-10">
+          {{name}}
+        </el-tag>
+      </div>
       <el-form :model="form" :rules="rules" ref="form" label-position="top">
-        <el-form-item label="tag 名称" prop="name">
+        <el-form-item label="tag 名称 (多条使用英文逗号分隔)" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item>
@@ -39,6 +48,11 @@ export default {
       }
     }
   },
+  computed: {
+    nameArray () {
+      return this.form.name === '' ? [] : this.form.name.split(',').filter(name => name !== '')
+    }
+  },
   methods: {
     /**
      * 发送数据
@@ -46,7 +60,7 @@ export default {
     sendData () {
       this.loadingStart()
       this.$http.post('tag', {
-        name: this.form.name
+        names: this.nameArray
       })
         .then(res => {
           this.loadingEnd()
