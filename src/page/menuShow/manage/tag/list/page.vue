@@ -11,7 +11,13 @@
         </el-form-item>
         <!-- 根据名称搜索 -->
         <el-form-item>
-          <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" style="width: 150px;">
+          <el-input
+            v-model="searchId"
+            placeholder="id"
+            prefix-icon="el-icon-search"
+            :clearable="true"
+            style="width: 150px;"
+            @clear="getTableData">
             <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
           </el-input>
         </el-form-item>
@@ -61,6 +67,8 @@ export default {
      * 获取最基础的表格数据
      */
     getTableData () {
+      // 清空搜索条件
+      this.searchId = ''
       // 搜索
       this.loadingStart()
       this.$http.get('tag', {
