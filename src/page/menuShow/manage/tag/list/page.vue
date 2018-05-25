@@ -1,5 +1,5 @@
 <template>
-  <el-container class="page-table-list">
+  <el-container class="page-container">
     <!-- 标题 -->
     <page-title title="Tag 标签管理" sub-title="新增 修改 或者删除标签"/>
     <!-- 主体 -->
@@ -123,7 +123,9 @@ export default {
      * 接收新增事件
      */
     handleNew () {
-      //
+      this.$router.push({
+        name: 'manage-tag-new'
+      })
     },
     /**
      * 接收搜索事件 根据 name 搜索
@@ -148,8 +150,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-table-list {
-  flex-direction: column;
+.page-container {
   .card-header {
     margin: -10px;
   }

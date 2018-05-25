@@ -9,7 +9,7 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm">创建</el-button>
+          <el-button type="primary" @click="submitForm" icon="el-icon-check">保存</el-button>
         </el-form-item>
       </el-form>
     </el-card>
