@@ -1,6 +1,7 @@
 <template>
   <el-container class="page">
     <el-card>
+      <!-- 头部 -->
       <div slot="header" class="clearfix">
         <h1 class="mt-0 mb-0">Tag 标签管理</h1>
         <p class="mt-5">管理你的标签</p>
@@ -18,10 +19,11 @@
           </el-form>
         </div>
       </div>
+      <!-- 表格 -->
       <el-table v-bind="table">
         <el-table-column prop="id" label="ID" width="100"></el-table-column>
         <el-table-column prop="name" label="名称"></el-table-column>
-        <el-table-column label="操作" width="300">
+        <el-table-column label="操作" align="center" width="160">
           <template slot-scope="scope">
             <el-button
               size="small"
