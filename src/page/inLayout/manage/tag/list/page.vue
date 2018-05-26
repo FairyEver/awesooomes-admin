@@ -21,12 +21,15 @@
         <el-collapse class="card-header-search-collapse">
           <el-collapse-item title="模糊查询" name="search">
             <!-- 模糊查询表单 -->
-            <el-form :inline="true" size="small">
-              <el-form-item>
-                <el-input v-model="searchId" placeholder="名称" :clearable="true" class="w100"></el-input>
+            <el-form :model="searchForm" :inline="true" size="small" ref="searchForm">
+              <el-form-item prop="name">
+                <el-input v-model="searchForm.name" placeholder="名称" :clearable="true" class="w100"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button>搜索</el-button>
+                <el-button @click="getTableData">搜索</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button @click="handleResetForm('searchForm')">重置</el-button>
               </el-form-item>
             </el-form>
             <!-- 模糊查询表单 结束 -->
@@ -90,7 +93,8 @@ export default {
       this.loadingStart()
       this.$http.get('tag', {
         params: {
-          ...this.page
+          ...this.page,
+          ...this.searchForm
         }
       })
         .then(res => {
@@ -152,12 +156,6 @@ export default {
       this.$router.push({
         name: 'manage-tag-new'
       })
-    },
-    /**
-     * 接收搜索事件 根据 name 搜索
-     */
-    handleSearchName () {
-      //
     },
     /**
      * 接收搜索事件 根据 id 搜索

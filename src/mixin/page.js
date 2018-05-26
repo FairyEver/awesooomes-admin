@@ -35,6 +35,13 @@ export default {
       this.getTableData()
     },
     /**
+     * 接收清空表单的事件
+     */
+    handleResetForm (formName) {
+      console.log(formName)
+      this.$refs[formName].resetFields()
+    },
+    /**
      * 开始显示loading
      */
     loadingStart () {
@@ -46,7 +53,7 @@ export default {
       })
     },
     /**
-     * 开始显示loading
+     * 结束显示loading
      */
     loadingEnd () {
       this.loading.close()
