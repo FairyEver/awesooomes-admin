@@ -29,7 +29,7 @@
                 <el-button plain icon="el-icon-search" type="primary" @click="getTableData" />
               </el-form-item>
               <el-form-item>
-                <el-button plain icon="el-icon-refresh" type="warning" @click="handleResetForm('searchForm')" />
+                <el-button plain icon="el-icon-refresh" type="warning" @click="handleResetSearchForm('searchForm')" />
               </el-form-item>
             </el-form>
             <!-- 模糊查询表单 结束 -->
@@ -129,7 +129,7 @@ export default {
         })
     },
     /**
-     * 接收编辑事件
+     * 点击了表格上某一行的编辑按钮
      */
     handleEdit (scope) {
       this.$router.push({
@@ -140,14 +140,12 @@ export default {
       })
     },
     /**
-     * 接收删除事件
+     * 点击了表格上某一行的删除按钮
      */
     handleDelete (scope) {
       this.$confirm(`确认删除 "${scope.row.name}" ?`)
-        .then(_ => {
-          this.deleteOne(scope.row.id)
-        })
-        .catch(_ => {})
+        .then(() => this.deleteOne(scope.row.id))
+        .catch(() => {})
     },
     /**
      * 接收新增事件
@@ -168,6 +166,15 @@ export default {
       } else {
         this.getTableData()
       }
+    },
+    /**
+     * 接收点击复位模糊搜索表单
+     */
+    handleResetSearchForm (formName) {
+      // 清空表单
+      this.resetForm(formName)
+      // 自动搜索数据
+      this.getTableData()
     }
   }
 }

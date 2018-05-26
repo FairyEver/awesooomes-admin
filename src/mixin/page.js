@@ -37,7 +37,7 @@ export default {
     /**
      * 接收清空表单的事件
      */
-    handleResetForm (formName) {
+    resetForm (formName) {
       console.log(formName)
       this.$refs[formName].resetFields()
     },
