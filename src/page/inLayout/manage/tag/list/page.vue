@@ -91,9 +91,11 @@ export default {
       this.searchId = ''
       // 搜索
       this.loadingStart()
+      const { pageSize, currentPage } = this.page
       this.$http.get('tag', {
         params: {
-          ...this.page,
+          pageSize,
+          currentPage,
           ...this.searchForm
         }
       })
