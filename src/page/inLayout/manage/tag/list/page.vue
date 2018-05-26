@@ -26,7 +26,7 @@
                 <el-input v-model="searchForm.name" placeholder="名称" :clearable="true" class="w100"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button plain icon="el-icon-search" type="primary" @click="getTableData" />
+                <el-button plain icon="el-icon-search" type="primary" @click="handleSearchFormSubmit" />
               </el-form-item>
               <el-form-item>
                 <el-button plain icon="el-icon-refresh" type="warning" @click="handleResetSearchForm('searchForm')" />
@@ -168,6 +168,15 @@ export default {
       } else {
         this.getTableData()
       }
+    },
+    /**
+     * 接收模糊搜索的表单提交
+     */
+    handleSearchFormSubmit () {
+      // 复位页码到第一页
+      this.page.currentPage = 1
+      // 请求数据
+      this.getTableData()
     },
     /**
      * 接收点击复位模糊搜索表单
