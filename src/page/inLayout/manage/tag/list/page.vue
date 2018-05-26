@@ -26,10 +26,10 @@
                 <el-input v-model="searchForm.name" placeholder="名称" :clearable="true" class="w100"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button @click="getTableData">搜索</el-button>
+                <el-button plain icon="el-icon-search" type="primary" @click="getTableData" />
               </el-form-item>
               <el-form-item>
-                <el-button @click="handleResetForm('searchForm')">重置</el-button>
+                <el-button plain icon="el-icon-refresh" type="warning" @click="handleResetForm('searchForm')" />
               </el-form-item>
             </el-form>
             <!-- 模糊查询表单 结束 -->
