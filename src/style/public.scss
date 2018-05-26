@@ -12,10 +12,12 @@ html, body {
   height: 100%;
 }
 
+// 页面容器
 .page-container {
   flex-direction: column;
 }
 
+// 列表页面上 在 card header 里的模糊查询面板
 .card-header-search-collapse {
   border-top: none;
   border-bottom: none;
@@ -24,6 +26,7 @@ html, body {
     border-bottom: none;
     background-color: rgba(#F2F6FC, .5);
     padding-left: 10px;
+    user-select: none;
   }
   .el-collapse-item__wrap {
     border-bottom: none;
@@ -44,10 +47,18 @@ html, body {
   @extend .flex-center;
   flex-direction: column;
 }
+
 // 高度100%
 .height-full {
   height: 100%;
 }
+
+.w100 { width: 100px; }
+.w110 { width: 110px; }
+.w120 { width: 120px; }
+.w130 { width: 130px; }
+.w140 { width: 140px; }
+.w150 { width: 150px; }
 
 .mt-0 { margin-top: 0px; }
 .mt-5 { margin-top: 5px; }

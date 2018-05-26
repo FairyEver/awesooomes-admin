@@ -23,7 +23,7 @@
             <!-- 模糊查询表单 -->
             <el-form :inline="true" size="small">
               <el-form-item>
-                <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;"></el-input>
+                <el-input v-model="searchId" placeholder="名称" :clearable="true" class="w100"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button>搜索</el-button>
@@ -65,6 +65,9 @@ export default {
   data () {
     return {
       searchId: '',
+      searchForm: {
+        name: ''
+      },
       table: {
         data: [],
         size: 'mini',
