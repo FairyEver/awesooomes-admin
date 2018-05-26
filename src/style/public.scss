@@ -16,6 +16,24 @@ html, body {
   flex-direction: column;
 }
 
+.card-header-search-collapse {
+  border-top: none;
+  border-bottom: none;
+  margin-top: 10px;
+  .el-collapse-item__header {
+    border-bottom: none;
+    background-color: rgba(#F2F6FC, .5);
+    padding-left: 10px;
+  }
+  .el-collapse-item__wrap {
+    border-bottom: none;
+  }
+  .el-collapse-item__content {
+    background-color: rgba(#F2F6FC, .5);
+    padding: 0px 10px 10px 10px;
+  }
+}
+
 // 垂直水平居中
 .flex-center {
   display: flex;

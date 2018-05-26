@@ -16,11 +16,25 @@
               <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
             </el-input>
           </el-form-item>
-          <!-- 打开模糊查询面板 -->
-          <el-form-item>
-            <el-button>模糊查询</el-button>
-          </el-form-item>
         </el-form>
+        <!-- 模糊查询面板 -->
+        <el-collapse class="card-header-search-collapse">
+          <el-collapse-item title="模糊查询" name="search">
+            <!-- 模糊查询表单 -->
+            <el-form :inline="true" size="small">
+              <el-form-item>
+                <el-button type="primary" icon="el-icon-plus" @click="handleNew">新建</el-button>
+              </el-form-item>
+              <!-- 根据名称搜索 -->
+              <el-form-item>
+                <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;" @clear="getTableData">
+                  <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
+                </el-input>
+              </el-form-item>
+            </el-form>
+            <!-- 模糊查询表单 结束 -->
+          </el-collapse-item>
+        </el-collapse>
       </div>
       <!-- 表格 -->
       <div class="card-body">
@@ -165,13 +179,13 @@ export default {
 .page-container {
   .card-header {
     margin: -10px;
-  }
-  .el-form-item {
-    margin-bottom: 0px;
-    margin-right: 5px;
-  }
-  .el-input-group--append {
-    margin-top: -1px;
+    .el-form-item {
+      margin-bottom: 0px;
+      margin-right: 5px;
+    }
+    .el-input-group--append {
+      margin-top: -1px;
+    }
   }
   .card-body {
     margin: -10px;
