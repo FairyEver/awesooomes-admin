@@ -41,7 +41,7 @@
         <!-- 分页 -->
         <page v-if="page.pageSize > 10" class="mb-5" v-bind="page" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
         <!-- 表格 -->
-        <el-table v-bind="table">
+        <el-table v-bind="tableComputed">
           <el-table-column prop="id" label="ID" align="center" width="60"></el-table-column>
           <el-table-column prop="name" label="名称"></el-table-column>
           <el-table-column label="操作" align="center" width="140">
@@ -67,19 +67,20 @@ export default {
   ],
   data () {
     return {
+      // 根据id精确查找
       searchId: '',
+      // 模糊查找表单
       searchForm: {
         name: ''
       },
+      // 页面表格设置
       table: {
-        data: [],
-        size: 'mini',
-        border: true,
-        stripe: true
+        data: []
       }
     }
   },
   mounted () {
+    // 加载后先自动请求一遍数据
     this.getTableData()
   },
   methods: {
@@ -121,6 +122,9 @@ export default {
           this.table.data = res.data.data.list
           this.page.total = res.data.data.total
         })
+        .catch(err => {
+          this.handleAjaxError(err)
+        })
     },
     /**
      * 删除一个tag
@@ -131,6 +135,9 @@ export default {
         .then(res => {
           this.loadingEnd()
           this.getTableData()
+        })
+        .catch(err => {
+          this.handleAjaxError(err)
         })
     },
     /**

@@ -6,6 +6,23 @@ export default {
         total: 0,
         pageSize: 10,
         currentPage: 1
+      },
+      tableStyle: {
+        size: 'mini',
+        border: true,
+        stripe: true
+      }
+    }
+  },
+  computed: {
+    /**
+     * 页面表格设置和通用默认设置混合
+     * 这个值是直接给表格的
+     */
+    tableComputed () {
+      return {
+        ...this.tableStyle,
+        ...this.table
       }
     }
   },
@@ -63,7 +80,7 @@ export default {
       this.loading.close()
     },
     /**
-     * 
+     * 通用的页面异步请求错误处理
      * @param {error} err 错误对象
      */
     handleAjaxError (err) {
