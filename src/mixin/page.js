@@ -12,6 +12,7 @@ export default {
   methods: {
     /**
      * 数据加载后显示提示信息
+     * @param {*} res ajax返回的数据
      */
     messageData (res) {
       this.$message({
@@ -21,6 +22,7 @@ export default {
     },
     /**
      * 每页大小发生变化
+     * @param {number} val 新的页面条目数量
      */
     handleSizeChange (val) {
       this.page.currentPage = 1
@@ -29,6 +31,7 @@ export default {
     },
     /**
      * 页码变化
+     * @param {number} val 新的页码
      */
     handleCurrentChange (val) {
       this.page.currentPage = val
@@ -36,6 +39,7 @@ export default {
     },
     /**
      * 接收清空表单的事件
+     * @param {string} formName 表单的ref
      */
     resetForm (formName) {
       console.log(formName)
@@ -57,6 +61,13 @@ export default {
      */
     loadingEnd () {
       this.loading.close()
+    },
+    /**
+     * 
+     * @param {error} err 错误对象
+     */
+    handleAjaxError (err) {
+      console.log(err)
     }
   }
 }

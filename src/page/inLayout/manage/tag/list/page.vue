@@ -105,6 +105,9 @@ export default {
           this.table.data = res.data.data.list
           this.page.total = res.data.data.total
         })
+        .catch(err => {
+          this.handleAjaxError(err)
+        })
     },
     /**
      * 通过 id 精确搜索
