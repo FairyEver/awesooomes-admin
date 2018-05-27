@@ -168,11 +168,11 @@ export default {
       })
     },
     /**
-     * 接收搜索事件 根据 id 搜索
+     * 接收精确定位请求
+     * 写了搜索id 用id查
+     * 没写 id 直接拉取数据
      */
     handleSearchId () {
-      // 写了搜索id 用id查
-      // 没写id 直接拉取数据
       if (this.searchId) {
         this.searchById()
       } else {
