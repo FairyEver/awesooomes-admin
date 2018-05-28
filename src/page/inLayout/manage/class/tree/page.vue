@@ -204,6 +204,20 @@ export default {
      */
     handleSave () {
       console.log(JSON.stringify(this.treeData))
+      console.log(JSON.stringify(this.dataZip(this.treeData)))
+      // [{"i":86,"c":[{"i":90}]},{"i":87,"c":[{"i":89},{"i":91,"c":[{"i":88}]}]},{"i":92,"c":[{"i":93,"c":[{"i":95},{"i":97,"c":[{"i":94}]},{"i":96}]}]}]
+    },
+    // 压缩数据
+    dataZip (data) {
+      const arrayZip = (arr) => {
+        return arr.map(item => {
+          return {
+            i: item.id,
+            ...(item.children && item.children.length > 0) ? { c: arrayZip(item.children) } : {}
+          }
+        })
+      }
+      return arrayZip(data)
     }
   }
 }
