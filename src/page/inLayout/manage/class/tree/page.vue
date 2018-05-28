@@ -47,7 +47,7 @@ export default {
   ],
   data () {
     return {
-      treeData: treeData,
+      treeData: [],
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -73,11 +73,13 @@ export default {
       children.splice(index, 1)
     },
     /**
-     * 获取最基础的表格数据
+     * 获取最基础的树数据
      */
     getTableData () {
       // 搜索
-      // this.loadingStart()
+      this.loadingStart()
+      this.treeData = treeData
+      this.loadingEnd()
       // const { pageSize, currentPage } = this.page
       // this.$http.get('class', {
       //   params: {
