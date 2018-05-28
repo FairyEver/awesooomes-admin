@@ -90,7 +90,7 @@ export default {
         .then(res => {
           this.loadingEnd()
           this.messageData(res)
-          this.treeData = res.data.data
+          this.treeData = this.dataUnzip(res.data.data)
         })
         .catch(err => {
           this.handleAjaxError(err)
@@ -126,6 +126,21 @@ export default {
           this.handleAjaxError(err)
         })
     },
+    /**
+     * 保存这个树
+     */
+    saveTree () {
+      this.loadingStart()
+      this.$http.post('class-tree', {
+        value: JSON.stringify(this.dataZip(this.treeData))
+      })
+        .then(res => {
+          this.loadingEnd()
+        })
+        .catch(err => {
+          this.handleAjaxError(err)
+        })
+    },
     handleAppend (data) {
       this.$prompt('请输入分类名称', '提示', {
         confirmButtonText: '确定',
@@ -137,14 +152,12 @@ export default {
         if (!id) {
           return
         }
-        console.log(label)
         // 新的节点信息
         const newChild = {
           id,
           label,
           children: []
         }
-        console.log(newChild)
         // 如果插入的父节点没有子节点
         if (!data.children) {
           this.$set(data, 'children', [])
@@ -203,9 +216,8 @@ export default {
      * 点击了保存
      */
     handleSave () {
-      console.log(JSON.stringify(this.treeData))
-      console.log(JSON.stringify(this.dataZip(this.treeData)))
-      // [{"i":86,"c":[{"i":90}]},{"i":87,"c":[{"i":89},{"i":91,"c":[{"i":88}]}]},{"i":92,"c":[{"i":93,"c":[{"i":95},{"i":97,"c":[{"i":94}]},{"i":96}]}]}]
+      // 保存这个树
+      this.saveTree()
     },
     // 压缩数据
     dataZip (data) {
@@ -218,6 +230,21 @@ export default {
         })
       }
       return arrayZip(data)
+    },
+    // 解压数据
+    dataUnzip (string) {
+      const data = JSON.parse(string)
+      const arrayUnzip = (arr) => {
+        return arr.map(item => {
+          const findClass = this.classData.find(c => c.id === item.i)
+          return {
+            index: item.i,
+            label: findClass ? findClass.name : '???',
+            children: arrayUnzip(item.c || [])
+          }
+        })
+      }
+      return arrayUnzip(data)
     }
   }
 }
