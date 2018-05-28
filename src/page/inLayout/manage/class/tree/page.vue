@@ -69,11 +69,17 @@ export default {
         cancelButtonText: '取消',
         inputPattern: /\S/,
         inputErrorMessage: '分类名称不能为空'
-      }).then(async ({ value }) => {
-        const id = await this.appendOne(value)
-        console.log(id)
+      }).then(async ({ label }) => {
+        const id = await this.appendOne(label)
+        if (!id) {
+          return
+        }
         // 新的节点信息
-        const newChild = { id: id, label: value, children: [] }
+        const newChild = {
+          id,
+          label,
+          children: []
+        }
         // 如果插入的父节点没有子节点
         if (!data.children) {
           this.$set(data, 'children', [])
@@ -83,7 +89,7 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '取消输入'
+          message: '取消插入'
         })
       })
     },
@@ -120,7 +126,7 @@ export default {
       //   })
     },
     /**
-     * 新增一个class
+     * 新增一个 class
      */
     appendOne (name = '') {
       return new Promise((resolve, reject) => {
@@ -131,7 +137,7 @@ export default {
           .then(res => {
             this.loadingEnd()
             this.messageData(res)
-            resolve(res)
+            resolve(res.data.data)
           })
       })
     },
