@@ -65,11 +65,27 @@ export default {
   },
   methods: {
     append (data) {
-      const newChild = { id: id++, label: 'testtest', children: [] }
-      if (!data.children) {
-        this.$set(data, 'children', [])
-      }
-      data.children.push(newChild)
+      this.$prompt('请输入分类名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /\S/,
+        inputErrorMessage: '分类名称不能为空'
+      }).then(({ value }) => {
+        // 新的节点信息
+        const newChild = { id: id++, label: value, children: [] }
+        // 如果插入的父节点没有子节点
+        if (!data.children) {
+          this.$set(data, 'children', [])
+        }
+        // 如果插入的父节点有子节点
+        data.children.push(newChild)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });       
+      });
+      
     },
     remove (node, data) {
       const parent = node.parent
