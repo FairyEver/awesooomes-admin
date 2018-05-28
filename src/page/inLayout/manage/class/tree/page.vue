@@ -9,8 +9,8 @@
         <el-form :inline="true" size="small">
           <!-- 根据名称搜索 -->
           <el-form-item>
-            <el-input v-model="searchId" placeholder="新增顶级分类" prefix-icon="el-icon-plus" :clearable="true" class="w200" @clear="getTableData">
-              <el-button slot="append" @click="handleSearchId">新增</el-button>
+            <el-input v-model="appendTopName" placeholder="新增顶级分类" prefix-icon="el-icon-plus" :clearable="true" class="w200" @clear="getTableData">
+              <el-button slot="append" @click="handleAppendTop">新增</el-button>
             </el-input>
           </el-form-item>
         </el-form>
@@ -26,8 +26,12 @@
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
             <span>
-              <el-button type="text" size="mini" @click="() => append(data)">Append</el-button>
-              <el-button type="text" size="mini" @click="() => remove(node, data)">Delete</el-button>
+              <span @click="() => append(data)">
+                <i class="el-icon-circle-plus-outline"></i> add
+              </span>
+              <span @click="() => remove(node, data)">
+                <i class="el-icon-delete"></i> delete
+              </span>
             </span>
           </span>
         </el-tree>
@@ -47,6 +51,7 @@ export default {
   ],
   data () {
     return {
+      appendTopName: '',
       treeData: [],
       defaultProps: {
         children: 'children',
@@ -59,14 +64,14 @@ export default {
     this.getTableData()
   },
   methods: {
-    append(data) {
-      const newChild = { id: id++, label: 'testtest', children: [] };
+    append (data) {
+      const newChild = { id: id++, label: 'testtest', children: [] }
       if (!data.children) {
         this.$set(data, 'children', [])
       }
       data.children.push(newChild)
     },
-    remove(node, data) {
+    remove (node, data) {
       const parent = node.parent
       const children = parent.data.children || parent.data
       const index = children.findIndex(d => d.id === data.id)
@@ -134,10 +139,8 @@ export default {
     /**
      * 接收新增事件
      */
-    handleNew () {
-      this.$router.push({
-        name: 'manage-class-new'
-      })
+    handleAppendTop () {
+      console.log('handleAppendTop')
     }
   }
 }
