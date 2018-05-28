@@ -8,15 +8,6 @@
       back-router-name="manage-class-list"/>
     <!-- 主体 -->
     <el-card>
-      <div>
-        <el-tag
-          v-for="(name, index) in nameArray"
-          :key="index"
-          type="info"
-          class="mr-10">
-          {{name}}
-        </el-tag>
-      </div>
       <el-form :model="form" :rules="rules" ref="form" label-position="top">
         <el-form-item label="class 名称 (多条使用一个空格分隔)" prop="name">
           <el-input v-model="form.name"></el-input>
@@ -48,11 +39,6 @@ export default {
       }
     }
   },
-  computed: {
-    nameArray () {
-      return this.form.name === '' ? [] : this.form.name.split(' ').filter(name => name !== '')
-    }
-  },
   methods: {
     /**
      * 发送数据
@@ -60,7 +46,7 @@ export default {
     sendData () {
       this.loadingStart()
       this.$http.post('class', {
-        names: this.nameArray
+        name: this.form.name
       })
         .then(res => {
           this.loadingEnd()
