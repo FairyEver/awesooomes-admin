@@ -44,7 +44,6 @@
 import pageMixin from '@/mixin/page.js'
 import treeData from './data'
 export const router = {}
-let id = 1000
 export default {
   mixins: [
     pageMixin
@@ -71,9 +70,10 @@ export default {
         inputPattern: /\S/,
         inputErrorMessage: '分类名称不能为空'
       }).then(async ({ value }) => {
-        await this.appendOne(value)
+        const id = await this.appendOne(value)
+        console.log(id)
         // 新的节点信息
-        const newChild = { id: id++, label: value, children: [] }
+        const newChild = { id: id, label: value, children: [] }
         // 如果插入的父节点没有子节点
         if (!data.children) {
           this.$set(data, 'children', [])
@@ -84,9 +84,8 @@ export default {
         this.$message({
           type: 'info',
           message: '取消输入'
-        });       
-      });
-      
+        })
+      })
     },
     remove (node, data) {
       const parent = node.parent
@@ -124,7 +123,7 @@ export default {
      * 新增一个class
      */
     appendOne (name = '') {
-      return new Promise ((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         this.loadingStart()
         this.$http.post('class', {
           name
@@ -132,7 +131,7 @@ export default {
           .then(res => {
             this.loadingEnd()
             this.messageData(res)
-            resolve()
+            resolve(res)
           })
       })
     },
