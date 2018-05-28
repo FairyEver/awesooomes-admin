@@ -35,6 +35,7 @@
             </span>
           </span>
         </el-tree>
+        <el-button type="primary" class="width-full mt-10">保存</el-button>
       </div>
     </el-card>
   </el-container>
