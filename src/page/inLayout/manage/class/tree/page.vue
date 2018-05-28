@@ -43,7 +43,6 @@
 
 <script>
 import pageMixin from '@/mixin/page.js'
-import treeData from './data'
 export const router = {}
 export default {
   mixins: [
@@ -53,6 +52,7 @@ export default {
     return {
       appendTopName: '',
       treeData: [],
+      classData: [],
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -65,30 +65,36 @@ export default {
   },
   methods: {
     /**
+     * 获得所有的 class
+     */
+    getClassData () {
+      return new Promise(async (resolve, reject) => {
+        this.$http.get('class-all')
+          .then(res => {
+            resolve(res.data.data)
+          })
+          .catch(err => {
+            this.handleAjaxError(err)
+          })
+      })
+    },
+    /**
      * 获取最基础的树数据
      */
-    getTableData () {
+    async getTableData () {
       // 搜索
       this.loadingStart()
-      this.treeData = []
-      this.loadingEnd()
-      // const { pageSize, currentPage } = this.page
-      // this.$http.get('class', {
-      //   params: {
-      //     pageSize,
-      //     currentPage,
-      //     ...this.searchForm
-      //   }
-      // })
-      //   .then(res => {
-      //     this.loadingEnd()
-      //     this.messageData(res)
-      //     this.table.data = res.data.data.list
-      //     this.page.total = res.data.data.total
-      //   })
-      //   .catch(err => {
-      //     this.handleAjaxError(err)
-      //   })
+      // 先取得所有的分类
+      this.classData = await this.getClassData()
+      this.$http.get('class-tree')
+        .then(res => {
+          this.loadingEnd()
+          this.messageData(res)
+          this.treeData = res.data.data
+        })
+        .catch(err => {
+          this.handleAjaxError(err)
+        })
     },
     /**
      * 新增一个 class
