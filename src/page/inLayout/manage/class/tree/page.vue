@@ -4,38 +4,37 @@
     <page-title title="分类树" sub-title="分类树管理"/>
     <!-- 主体 -->
     <el-card>
-      <el-tree
-        :data="treeData"
-        node-key="id"
-        default-expand-all
-        :expand-on-click-node="false"
-        @node-drag-start="handleDragStart"
-        @node-drag-enter="handleDragEnter"
-        @node-drag-leave="handleDragLeave"
-        @node-drag-over="handleDragOver"
-        @node-drag-end="handleDragEnd"
-        @node-drop="handleDrop"
-        draggable
-        :allow-drop="allowDrop"
-        :allow-drag="allowDrag">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ node.label }}</span>
-          <span>
-            <el-button
-              type="text"
-              size="mini"
-              @click="() => append(data)">
-              Append
-            </el-button>
-            <el-button
-              type="text"
-              size="mini"
-              @click="() => remove(node, data)">
-              Delete
-            </el-button>
+      <!-- 头部 -->
+      <div slot="header" class="card-header">
+        <el-form :inline="true" size="small">
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-plus" @click="handleNew">新建</el-button>
+          </el-form-item>
+          <!-- 根据名称搜索 -->
+          <el-form-item>
+            <el-input v-model="searchId" placeholder="id" prefix-icon="el-icon-search" :clearable="true" style="width: 150px;" @clear="getTableData">
+              <el-button slot="append" icon="el-icon-search" @click="handleSearchId"></el-button>
+            </el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <!-- tree -->
+      <div class="card-body">
+        <el-tree
+          :data="treeData"
+          node-key="id"
+          default-expand-all
+          :expand-on-click-node="false"
+          draggable>
+          <span class="custom-tree-node" slot-scope="{ node, data }">
+            <span>{{ node.label }}</span>
+            <span>
+              <el-button type="text" size="mini" @click="() => append(data)">Append</el-button>
+              <el-button type="text" size="mini" @click="() => remove(node, data)">Delete</el-button>
+            </span>
           </span>
-        </span>
-      </el-tree>
+        </el-tree>
+      </div>
     </el-card>
   </el-container>
 </template>
@@ -109,44 +108,15 @@ export default {
     append(data) {
       const newChild = { id: id++, label: 'testtest', children: [] };
       if (!data.children) {
-        this.$set(data, 'children', []);
+        this.$set(data, 'children', [])
       }
-      data.children.push(newChild);
+      data.children.push(newChild)
     },
-
     remove(node, data) {
-      const parent = node.parent;
-      const children = parent.data.children || parent.data;
-      const index = children.findIndex(d => d.id === data.id);
-      children.splice(index, 1);
-    },
-    handleDragStart (node, ev) {
-      console.log('drag start', node);
-    },
-    handleDragEnter (draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label);
-    },
-    handleDragLeave (draggingNode, dropNode, ev) {
-      console.log('tree drag leave: ', dropNode.label);
-    },
-    handleDragOver (draggingNode, dropNode, ev) {
-      console.log('tree drag over: ', dropNode.label);
-    },
-    handleDragEnd (draggingNode, dropNode, dropType, ev) {
-      console.log('tree drag end: ', dropNode && dropNode.label, dropType);
-    },
-    handleDrop (draggingNode, dropNode, dropType, ev) {
-      console.log('tree drop: ', dropNode.label, dropType);
-    },
-    allowDrop (draggingNode, dropNode, type) {
-      if (dropNode.data.label === '二级 3-1') {
-        return type !== 'inner';
-      } else {
-        return true;
-      }
-    },
-    allowDrag (draggingNode) {
-      return draggingNode.data.label.indexOf('三级 3-1-1') === -1;
+      const parent = node.parent
+      const children = parent.data.children || parent.data
+      const index = children.findIndex(d => d.id === data.id)
+      children.splice(index, 1)
     },
     /**
      * 获取最基础的表格数据
@@ -218,4 +188,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-container {
+  .card-header {
+    margin: -10px;
+    .el-form-item {
+      margin-bottom: 0px;
+      margin-right: 5px;
+    }
+    .el-input-group--append {
+      margin-top: -1px;
+    }
+  }
+  .card-body {
+    margin: -10px;
+  }
+}
 </style>
