@@ -35,7 +35,7 @@
             </span>
           </span>
         </el-tree>
-        <el-button type="primary" class="width-full mt-10">保存</el-button>
+        <el-button type="primary" class="width-full mt-10" @click="handleSave">保存</el-button>
       </div>
     </el-card>
   </el-container>
@@ -198,6 +198,12 @@ export default {
       this.$confirm(`确认删除 "${scope.row.name}" ?`)
         .then(() => this.delete(scope.row.id))
         .catch(() => {})
+    },
+    /**
+     * 点击了保存
+     */
+    handleSave () {
+      console.log(JSON.stringify(this.treeData))
     }
   }
 }
