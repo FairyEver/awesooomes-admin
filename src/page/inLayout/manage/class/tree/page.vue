@@ -26,10 +26,10 @@
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
             <span>
-              <span @click="() => append(data)">
+              <span @click="() => handleAppend(data)">
                 <i class="el-icon-circle-plus-outline"></i> add
               </span>
-              <span @click="() => remove(node, data)">
+              <span @click="() => handleRemove(node, data)">
                 <i class="el-icon-delete"></i> delete
               </span>
             </span>
@@ -63,49 +63,13 @@ export default {
     this.getTableData()
   },
   methods: {
-    append (data) {
-      this.$prompt('请输入分类名称', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputPattern: /\S/,
-        inputErrorMessage: '分类名称不能为空'
-      }).then(async ({ label }) => {
-        const id = await this.appendOne(label)
-        if (!id) {
-          return
-        }
-        // 新的节点信息
-        const newChild = {
-          id,
-          label,
-          children: []
-        }
-        // 如果插入的父节点没有子节点
-        if (!data.children) {
-          this.$set(data, 'children', [])
-        }
-        // 如果插入的父节点有子节点
-        data.children.push(newChild)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消插入'
-        })
-      })
-    },
-    remove (node, data) {
-      const parent = node.parent
-      const children = parent.data.children || parent.data
-      const index = children.findIndex(d => d.id === data.id)
-      children.splice(index, 1)
-    },
     /**
      * 获取最基础的树数据
      */
     getTableData () {
       // 搜索
       this.loadingStart()
-      this.treeData = treeData
+      this.treeData = []
       this.loadingEnd()
       // const { pageSize, currentPage } = this.page
       // this.$http.get('class', {
@@ -128,7 +92,7 @@ export default {
     /**
      * 新增一个 class
      */
-    appendOne (name = '') {
+    append (name = '') {
       return new Promise((resolve, reject) => {
         this.loadingStart()
         this.$http.post('class', {
@@ -144,7 +108,7 @@ export default {
     /**
      * 删除一个class
      */
-    deleteOne (id) {
+    delete (id) {
       this.loadingStart()
       this.$http.delete(`class/${id}`)
         .then(res => {
@@ -154,6 +118,60 @@ export default {
         .catch(err => {
           this.handleAjaxError(err)
         })
+    },
+    handleAppend (data) {
+      this.$prompt('请输入分类名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /\S/,
+        inputErrorMessage: '分类名称不能为空'
+      }).then(async ({ value: label }) => {
+        const id = await this.append(label)
+        if (!id) {
+          return
+        }
+        console.log(label)
+        // 新的节点信息
+        const newChild = {
+          id,
+          label,
+          children: []
+        }
+        console.log(newChild)
+        // 如果插入的父节点没有子节点
+        if (!data.children) {
+          this.$set(data, 'children', [])
+        }
+        // 如果插入的父节点有子节点
+        data.children.push(newChild)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消插入'
+        })
+      })
+    },
+    /**
+     * 接收新增顶级菜单事件
+     */
+    async handleAppendTop () {
+      const id = await this.append(this.appendTopName)
+      if (!id) {
+        return
+      }
+      // 新的节点信息
+      const newChild = {
+        id,
+        label: this.appendTopName,
+        children: []
+      }
+      this.treeData.push(newChild)
+    },
+    handleRemove (node, data) {
+      const parent = node.parent
+      const children = parent.data.children || parent.data
+      const index = children.findIndex(d => d.id === data.id)
+      children.splice(index, 1)
     },
     /**
      * 点击了表格上某一行的编辑按钮
@@ -171,14 +189,8 @@ export default {
      */
     handleDelete (scope) {
       this.$confirm(`确认删除 "${scope.row.name}" ?`)
-        .then(() => this.deleteOne(scope.row.id))
+        .then(() => this.delete(scope.row.id))
         .catch(() => {})
-    },
-    /**
-     * 接收新增事件
-     */
-    handleAppendTop () {
-      console.log('handleAppendTop')
     }
   }
 }
