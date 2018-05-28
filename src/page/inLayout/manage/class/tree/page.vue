@@ -9,7 +9,7 @@
         <el-form :inline="true" size="small">
           <!-- 根据名称搜索 -->
           <el-form-item>
-            <el-input v-model="appendTopName" placeholder="新增顶级分类" prefix-icon="el-icon-plus" :clearable="true" class="w200" @clear="getTableData">
+            <el-input v-model="appendTopName" placeholder="新增顶级分类" prefix-icon="el-icon-plus" :clearable="true" class="w200">
               <el-button slot="append" @click="handleAppendTop">新增</el-button>
             </el-input>
           </el-form-item>
