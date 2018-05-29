@@ -131,15 +131,18 @@ export default {
      */
     saveTree () {
       this.loadingStart()
-      this.$http.post('class-tree', {
-        value: JSON.stringify(this.dataZip(this.treeData))
-      })
-        .then(res => {
-          this.loadingEnd()
-        })
-        .catch(err => {
-          this.handleAjaxError(err)
-        })
+      const value = JSON.stringify(this.dataZip(this.treeData))
+      console.log(JSON.stringify(this.treeData))
+      console.log(value)
+      // this.$http.post('class-tree', {
+      //   value
+      // })
+      //   .then(res => {
+      //     this.loadingEnd()
+      //   })
+      //   .catch(err => {
+      //     this.handleAjaxError(err)
+      //   })
     },
     handleAppend (data) {
       this.$prompt('请输入分类名称', '提示', {
@@ -221,6 +224,7 @@ export default {
     },
     // 压缩数据
     dataZip (data) {
+      console.log(data)
       const arrayZip = (arr) => {
         return arr.map(item => {
           return {
